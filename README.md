@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/flopp/sodium-crypt.svg?branch=master)](https://travis-ci.org/flopp/sodium-crypt)
+![License MIT](https://img.shields.io/badge/license-MIT-lightgrey.svg?style=flat)
 
 # sodium-crypt
 libsodium based file encrypter/decrypter
