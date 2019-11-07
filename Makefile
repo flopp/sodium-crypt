@@ -1,31 +1,32 @@
 .PHONY: all clean format test test_encrypt_decypt test_encrypt_twice
 
-all: sodium-crypt
+all: build/sodium-crypt
 
 clean:
 	@echo "removing compilation artifacts"
-	@rm -f sodium-crypt sodium-crypt.o
+	@rm -rf build
 
 format:
 	@echo "formatting the source files"
-	@clang-format -i main.c sodium-crypt.c sodium-crypt.h
+	@clang-format -i src/main.c src/sodium-crypt.c src/sodium-crypt.h
 
-
-sodium-crypt.o: sodium-crypt.c sodium-crypt.h
+build/sodium-crypt.o: src/sodium-crypt.c src/sodium-crypt.h
 	@echo "creating $@"
-	@gcc -Wall -Wextra -O2 -std=c99 -c sodium-crypt.c -o sodium-crypt.o
+	@mkdir -p build
+	@gcc -Wall -Wextra -O2 -std=c99 -c src/sodium-crypt.c -o $@
 
-sodium-crypt: main.c sodium-crypt.o
+build/sodium-crypt: src/main.c build/sodium-crypt.o
 	@echo "creating $@"
-	@gcc -Wall -Wextra -O2 -std=c99 main.c -o sodium-crypt sodium-crypt.o -lsodium
+	@mkdir -p build
+	@gcc -Wall -Wextra -O2 -std=c99 src/main.c -o $@ build/sodium-crypt.o -lsodium
 
 
-test: test_encrypt_decypt test_encrypt_twice
+test: test/encrypt_decypt test/encrypt_twice
 
-test_encrypt_decypt: sodium-crypt test_encrypt_decrypt.sh 
+test/encrypt_decypt: build/sodium-crypt test/encrypt_decrypt.sh 
 	@echo "running $@"
-	@bash test_encrypt_decrypt.sh
+	@bash test/encrypt_decrypt.sh build/sodium-crypt
 
-test_encrypt_twice: sodium-crypt test_encrypt_twice.sh
+test/encrypt_twice: build/sodium-crypt test/encrypt_twice.sh
 	@echo "running $@"
-	@bash test_encrypt_twice.sh
+	@bash test/encrypt_twice.sh build/sodium-crypt

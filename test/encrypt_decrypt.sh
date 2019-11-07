@@ -2,13 +2,14 @@
 
 set -eu
 
-P="HORSE-BATTERY-STAPLE"
+SODIUM_CRYPT="${1}"
+PASSWORD="HORSE-BATTERY-STAPLE"
 T="$(mktemp -d)"
 
 dd status=none if=/dev/urandom of="${T}/original" count=1 bs=1M
 
-./sodium-crypt --encrypt "${P}" "${T}/original"  "${T}/encrypted"
-./sodium-crypt --decrypt "${P}" "${T}/encrypted" "${T}/decrypted"
+"${SODIUM_CRYPT}" --encrypt "${PASSWORD}" "${T}/original"  "${T}/encrypted"
+"${SODIUM_CRYPT}" --decrypt "${PASSWORD}" "${T}/encrypted" "${T}/decrypted"
 
 if ! cmp --quiet "${T}/original" "${T}/decrypted" ; then
     echo "en/decryption round-trip did not result in an equivalent file"

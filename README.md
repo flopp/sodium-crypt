@@ -14,6 +14,7 @@ Then run
 
 ```
 make
+make test
 ```
 
 ## Use
@@ -22,11 +23,11 @@ make
 ### Encrypt
 
 ```
-sodium-crypt --encrypt PASSWORD INPUTFILE OUTPUTFILE
+build/sodium-crypt --encrypt PASSWORD INPUTFILE OUTPUTFILE
 ```
 
 ### Decrypt
 
 ```
-sodium-crypt --decrypt PASSWORD INPUTFILE OUTPUTFILE
+build/sodium-crypt --decrypt PASSWORD INPUTFILE OUTPUTFILE
 ```
