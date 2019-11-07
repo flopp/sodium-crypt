@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/flopp/sodium-crypt.svg?branch=master)](https://travis-ci.org/flopp/sodium-crypt)
+
 # sodium-crypt
 libsodium based file encrypter/decrypter
 
